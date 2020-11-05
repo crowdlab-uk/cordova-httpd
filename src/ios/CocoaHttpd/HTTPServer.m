@@ -41,7 +41,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_INFO; // | HTTP_LOG_FLAG_TRACE;
 		// Setup underlying dispatch queues
 		serverQueue = dispatch_queue_create("HTTPServer", NULL);
 		connectionQueue = dispatch_queue_create("HTTPConnection", NULL);
-		
+    documentRoot = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingString:@"/media/"];
 		IsOnServerQueueKey = &IsOnServerQueueKey;
 		IsOnConnectionQueueKey = &IsOnConnectionQueueKey;
 		

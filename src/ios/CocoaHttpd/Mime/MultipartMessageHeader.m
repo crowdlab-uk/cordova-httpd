@@ -40,33 +40,32 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN;
 
 	char* bytes = (char*)data.bytes;
 	NSUInteger length = data.length;
-	int offset = 0;
-
-	// split header into header fields, separated by \r\n
-	uint16_t fields_separator = 0x0A0D; // \r\n
-	while( offset < length - 2 ) {
-
-		// the !isspace condition is to support header unfolding
-		if( (*(uint16_t*) (bytes+offset)  == fields_separator) && ((offset == length - 2) || !(isspace(bytes[offset+2])) )) {
-			NSData* fieldData = [NSData dataWithBytesNoCopy:bytes length:offset freeWhenDone:NO];
-			MultipartMessageHeaderField* field = [[MultipartMessageHeaderField alloc] initWithData: fieldData  contentEncoding:formEncoding];
-			if( field ) {
-				[fields setObject:field forKey:field.name];
-				HTTPLogVerbose(@"MultipartFormDataParser: Processed Header field '%@'",field.name);
-			}
-			else {
-				NSString* fieldStr = [[NSString  alloc] initWithData:fieldData encoding:NSASCIIStringEncoding];
-				HTTPLogWarn(@"MultipartFormDataParser: Failed to parse MIME header field. Input ASCII string:%@",fieldStr);
-			}
-
-			// move to the next header field
-			bytes += offset + 2;
-			length -= offset + 2;
-			offset = 0;
-			continue;
-		}
-		++ offset;
-	}
+  
+  char newBytes[2048];
+  int i=0;
+  while (i < length) {
+    newBytes[i] = bytes[i];
+    ++i;
+  }
+  newBytes[i] = 0;
+  
+  NSString *headersRaw = [NSString stringWithCString:newBytes encoding:NSUTF8StringEncoding];
+  NSArray *splitHeaders = [headersRaw componentsSeparatedByString:@"\r\n"];
+  
+  for (i=0; i < [splitHeaders count]; ++i) {
+    if (![splitHeaders[i] containsString:@":"]) {
+      continue;
+    }
+    NSArray *headerParts = [splitHeaders[i] componentsSeparatedByString:@":"];
+    if ([headerParts count] < 2) {
+      continue;
+    }
+    NSString *key = [headerParts objectAtIndex:0];
+    NSString *value = [headerParts objectAtIndex:1];
+    value = [value stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+    
+    [fields setObject:value forKey:key];
+  }
 	
 	if( !fields.count ) {
 		// it was an empty header.

@@ -25,7 +25,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
 		HTTPLogTrace();
 		
 		connection = parent; // Parents retain children, children do NOT retain parents
-		
+    _httpHeaders = [NSMutableDictionary new];
 		fileFD = NULL_FD;
 		filePath = [[fpath copy] stringByResolvingSymlinksInPath];
 		if (filePath == nil)

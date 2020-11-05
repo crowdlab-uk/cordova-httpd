@@ -8,6 +8,8 @@
 #import "DDRange.h"
 #import "DDData.h"
 #import "HTTPFileResponse.h"
+#import "HTTPErrorResponse.h"
+#import "HTTPDataResponse.h"
 #import "HTTPAsyncFileResponse.h"
 #import "WebSocket.h"
 #import "HTTPLogging.h"
@@ -1672,7 +1674,7 @@ static NSMutableArray *recentNonces;
 	HTTPLogTrace();
 	
 	// Override me to provide custom responses.
-	
+ 
 	NSString *filePath = [self filePathForURI:path allowDirectory:NO];
 	
 	BOOL isDir = NO;
@@ -1797,7 +1799,6 @@ static NSMutableArray *recentNonces;
 	
 	NSData *responseData = [self preprocessErrorResponse:response];
 	[asyncSocket writeData:responseData withTimeout:TIMEOUT_WRITE_ERROR tag:HTTP_RESPONSE];
-	
 }
 
 /**
@@ -2227,7 +2228,6 @@ static NSMutableArray *recentNonces;
 			{
 				NSUInteger bytesToRead;
 				bytesToRead = (requestChunkSize < POST_CHUNKSIZE) ? (NSUInteger)requestChunkSize : POST_CHUNKSIZE;
-				
 				[asyncSocket readDataToLength:bytesToRead
 				                  withTimeout:TIMEOUT_READ_BODY
 				                          tag:HTTP_REQUEST_CHUNK_DATA];
@@ -2258,7 +2258,6 @@ static NSMutableArray *recentNonces;
 			if (bytesLeft > 0)
 			{
 				NSUInteger bytesToRead = (bytesLeft < POST_CHUNKSIZE) ? (NSUInteger)bytesLeft : POST_CHUNKSIZE;
-				
 				[asyncSocket readDataToLength:bytesToRead
 				                  withTimeout:TIMEOUT_READ_BODY
 				                          tag:HTTP_REQUEST_CHUNK_DATA];
@@ -2267,7 +2266,6 @@ static NSMutableArray *recentNonces;
 			{
 				// We've read in all the data for this chunk.
 				// The data is followed by a CRLF, which we need to read (and basically ignore)
-				
 				[asyncSocket readDataToLength:2
 				                  withTimeout:TIMEOUT_READ_BODY
 				                          tag:HTTP_REQUEST_CHUNK_TRAILER];

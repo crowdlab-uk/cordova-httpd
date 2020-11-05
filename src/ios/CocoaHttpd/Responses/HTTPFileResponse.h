@@ -23,4 +23,6 @@
 - (id)initWithFilePath:(NSString *)filePath forConnection:(HTTPConnection *)connection;
 - (NSString *)filePath;
 
+@property (strong, nonatomic) NSMutableDictionary *httpHeaders;
+
 @end

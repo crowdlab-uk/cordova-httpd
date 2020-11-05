@@ -90,7 +90,7 @@ NSString* extractParamValue(const char* bytes, NSUInteger length, NSStringEncodi
 
 -(BOOL) parseHeaderValueBytes:(char*) bytes length:(NSUInteger) length encoding:(NSStringEncoding) encoding {
 	int offset = 0;
-	NSString* currentParam = nil;
+	NSString *currentParam = nil;
 	BOOL insideQuote = NO;
 	while( offset < length ) {
 		if( bytes[offset] == '\"' ) {
@@ -152,7 +152,7 @@ NSString* extractParamValue(const char* bytes, NSUInteger length, NSStringEncodi
 //		return YES;
 	}
 	if( currentParam ) {
-		NSString* paramValue = extractParamValue(bytes, length, encoding);
+		NSString *paramValue = extractParamValue(bytes, length, encoding);
 
 		if( nil == paramValue ) {
 			HTTPLogError(@"MultipartFormDataParser: Failed to exctract paramValue for key %@ in header %@",currentParam,name);
@@ -187,7 +187,7 @@ int findChar(const char* str, NSUInteger length, char c) {
 	return -1;
 }
 
-NSString* extractParamValue(const char* bytes, NSUInteger length, NSStringEncoding encoding) {
+NSString *extractParamValue(const char* bytes, NSUInteger length, NSStringEncoding encoding) {
 	if( !length ) 
 		return nil;
 	NSMutableString* value = nil;

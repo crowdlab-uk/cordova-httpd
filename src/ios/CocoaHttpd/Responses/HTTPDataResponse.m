@@ -17,7 +17,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_OFF; // | HTTP_LOG_FLAG_TRACE;
 	if((self = [super init]))
 	{
 		HTTPLogTrace();
-		
+    _httpHeaders = [NSMutableDictionary new];
 		offset = 0;
 		data = dataParam;
 	}

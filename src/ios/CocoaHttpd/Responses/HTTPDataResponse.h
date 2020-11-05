@@ -10,4 +10,6 @@
 
 - (id)initWithData:(NSData *)data;
 
+@property (strong, nonatomic) NSMutableDictionary *httpHeaders;
+
 @end
