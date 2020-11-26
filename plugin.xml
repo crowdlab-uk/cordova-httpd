@@ -1,7 +1,7 @@
 
 
 <?xml version="1.0" encoding="UTF-8"?>
-<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android" id="com.rjfun.cordova.httpd" version="0.9.2">
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android" id="com.crowdlab.cordova.httpd" version="0.9.2">
 	<name>CorHttpd</name>
 	<description>CorHttpd is an plugin with embedded web server into Cordova</description>
 	<author>Liming Xie</author>
