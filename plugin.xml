@@ -38,6 +38,10 @@
 			</feature>
 		</config-file>
 		<source-file src="src/ios/CorHttpd.m" />
+		<header-file src="src/ios/CocoaHttpd/CLHTTPServer.h" />
+		<source-file src="src/ios/CocoaHttpd/CLHTTPServer.m" />
+		<header-file src="src/ios/CocoaHttpd/CLHTTPConnection.h" />
+		<source-file src="src/ios/CocoaHttpd/CLHTTPConnection.m" />
 		<header-file src="src/ios/CocoaHttpd/HTTPLogging.h" />
 		<header-file src="src/ios/CocoaHttpd/HTTPServer.h" />
 		<source-file src="src/ios/CocoaHttpd/HTTPServer.m" />
