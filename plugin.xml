@@ -119,6 +119,8 @@ xmlns:android="http://schemas.android.com/apk/res/android">
         </config-file>
 
         <!-- OSX and iOS share the same sources -->
+        <header-file src="src/ios/CLHTTPServer.h" />
+        <source-file src="src/ios/CLHTTPServer.m" />
         <source-file src="src/ios/CorHttpd.m" />
         <header-file src="src/ios/CocoaHttpd/HTTPLogging.h" />
         <header-file src="src/ios/CocoaHttpd/HTTPServer.h" />
