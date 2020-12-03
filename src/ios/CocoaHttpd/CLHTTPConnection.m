@@ -147,7 +147,11 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_VERBOSE; // | HTTP_LOG_FLAG_TRACE
                                                               options:0
                                                                 range:NSMakeRange(0, [path length])];
   BOOL matchesFiles = numberOfMatchesForFiles > 0;
-  NSString *fileName = [path substringFromIndex:6];
+  
+  NSString *fileName = @"";
+  if (matchesFiles) {
+    fileName = [path substringFromIndex:6];
+  }
   
   if ([method isEqual:@"OPTIONS"]) {
     NSLog(@"OPTIONS:%@", request.allHeaderFields);
