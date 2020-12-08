@@ -185,7 +185,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_VERBOSE; // | HTTP_LOG_FLAG_TRACE
   if ([method isEqual:@"OPTIONS"]) {
     NSLog(@"OPTIONS:%@", request.allHeaderFields);
     HTTPDataResponse *deleteResponse = [[HTTPDataResponse alloc] initWithData:[@"options" dataUsingEncoding:NSUTF8StringEncoding]];
-    [deleteResponse.httpHeaders setValue:@"*" forKey:@"Access-Control-Allow-Origin"];
+    [deleteResponse.httpHeaders setValue:@"null" forKey:@"Access-Control-Allow-Origin"];
     [deleteResponse.httpHeaders setValue:@"OPTIONS, GET, POST, DELETE" forKey:@"Access-Control-Allow-Methods"];
     return deleteResponse;
   }
@@ -200,7 +200,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_VERBOSE; // | HTTP_LOG_FLAG_TRACE
   
   if ([method isEqual:@"GET"] && numberOfMatchesForIsUp == 1) {
     HTTPDataResponse *isUpResponse = [[HTTPDataResponse alloc] initWithData:[@"up" dataUsingEncoding:NSUTF8StringEncoding]];
-    [isUpResponse.httpHeaders setValue:@"*" forKey:@"Access-Control-Allow-Origin"];
+    [isUpResponse.httpHeaders setValue:@"null" forKey:@"Access-Control-Allow-Origin"];
 //      [deleteResponse.httpHeaders setValue:@"true" forKey:@"Access-Control-Allow-Credentials"];
     return isUpResponse;
   }
@@ -214,12 +214,12 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_VERBOSE; // | HTTP_LOG_FLAG_TRACE
     BOOL success = [fileManager removeItemAtPath:filePath error:&error];
     if (success) {
       HTTPDataResponse *deleteResponse = [[HTTPDataResponse alloc] initWithData:[@"deleted" dataUsingEncoding:NSUTF8StringEncoding]];
-      [deleteResponse.httpHeaders setValue:@"*" forKey:@"Access-Control-Allow-Origin"];
+      [deleteResponse.httpHeaders setValue:@"null" forKey:@"Access-Control-Allow-Origin"];
 //      [deleteResponse.httpHeaders setValue:@"true" forKey:@"Access-Control-Allow-Credentials"];
       return deleteResponse;
     } else {
       HTTPErrorResponse *deleteResponse = [[HTTPErrorResponse alloc] initWithErrorCode:404];
-      [deleteResponse.httpHeaders setValue:@"*" forKey:@"Access-Control-Allow-Origin"];
+      [deleteResponse.httpHeaders setValue:@"null" forKey:@"Access-Control-Allow-Origin"];
 //      [deleteResponse.httpHeaders setValue:@"true" forKey:@"Access-Control-Allow-Credentials"];
       return deleteResponse;
     }
@@ -227,7 +227,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_VERBOSE; // | HTTP_LOG_FLAG_TRACE
   
   if ([method isEqual:@"POST"] && matchesFiles) {
     HTTPDataResponse *response = [[HTTPDataResponse alloc] initWithData:[[NSString stringWithFormat:@"{\"uuid\":\"%@\"}", currentUUID] dataUsingEncoding:NSUTF8StringEncoding]];
-    [response.httpHeaders setObject:@"*" forKey:@"Access-Control-Allow-Origin"];
+    [response.httpHeaders setObject:@"null" forKey:@"Access-Control-Allow-Origin"];
 //    [response.httpHeaders setObject:@"true" forKey:@"Access-Control-Allow-Credentials"];
     return response;
   }
@@ -237,7 +237,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_VERBOSE; // | HTTP_LOG_FLAG_TRACE
     NSString *filePath = [mediaPath stringByAppendingPathComponent:[path substringFromIndex:@"/files/".length]];
     
     HTTPFileResponse *response = [[HTTPFileResponse alloc] initWithFilePath: filePath forConnection:self];
-    [response.httpHeaders setValue:@"*" forKey:@"Access-Control-Allow-Origin"];
+    [response.httpHeaders setValue:@"null" forKey:@"Access-Control-Allow-Origin"];
 //    [response.httpHeaders setValue:@"true" forKey:@"Access-Control-Allow-Credentials"];
     return response;
   }
