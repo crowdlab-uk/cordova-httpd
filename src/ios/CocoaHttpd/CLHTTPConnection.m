@@ -28,6 +28,8 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_VERBOSE; // | HTTP_LOG_FLAG_TRACE
 - init {
   currentUUID = nil;
   self.mimeMap = @{
+    @"video/x-msvideo": @".avi",
+    @"video/mpeg": @".mpeg",
     @"audio/mp3": @".mp3",
     @"audio/m4a": @".m4a",
     @"audio/x-m4a": @".m4a",
@@ -40,7 +42,38 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_VERBOSE; // | HTTP_LOG_FLAG_TRACE
     @"video/quicktime": @".mov",
     @"image/jpeg": @".jpg",
     @"image/png": @".png",
-    @"image/gif": @".gif"
+    @"image/gif": @".gif",
+    @"image/heic": @".heic",
+    @"image/heix": @".heix",
+    @"image/mif1": @".mif1",
+    @"image/tiff": @".tiff",
+    @"video/x-msvideo": @".avi",
+    @"image/svg+xml": @".svg",
+    @"audio/wav": @".wav",
+    @"audio/webm": @".weba",
+    @"video/webm": @".webm",
+    @"image/webp": @".webp",
+    @"video/3gpp": @".3gp",
+    @"audio/3gpp": @".3gp",
+    @"video/3gpp2": @".3g2",
+    @"audio/3gpp2": @".3g2",
+    @"image/x-adobe-dng": @".dng",
+    @"image/x-sony-arw": @".arw",
+    @"image/x-canon-cr2": @".cr2",
+    @"image/x-canon-crw": @".crw",
+    @"image/x-kodak-dcr": @".drc",
+    @"image/x-epson-erf": @".erf",
+    @"image/x-kodak-k25": @".k25",
+    @"image/x-kodak-kdc": @".kdc",
+    @"image/x-minolta-mrw": @".mrw",
+    @"image/x-nikon-nef": @".nef",
+    @"image/x-olympus-orf": @".orf",
+    @"image/x-pentax-pef": @".pef",
+    @"image/x-fuji-raf": @".raf",
+    @"image/x-panasonic-raw": @".raw",
+    @"image/x-sony-sr2": @".sr2",
+    @"image/x-sony-srf": @".srf",
+    @"image/x-sigma-x3f": @".x3f"
   };
   return [super init];
 }
@@ -147,11 +180,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_VERBOSE; // | HTTP_LOG_FLAG_TRACE
                                                               options:0
                                                                 range:NSMakeRange(0, [path length])];
   BOOL matchesFiles = numberOfMatchesForFiles > 0;
-  
-  NSString *fileName = @"";
-  if (matchesFiles) {
-    fileName = [path substringFromIndex:6];
-  }
+  NSString *fileName = [path substringFromIndex:6];
   
   if ([method isEqual:@"OPTIONS"]) {
     NSLog(@"OPTIONS:%@", request.allHeaderFields);
@@ -255,6 +284,8 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_VERBOSE; // | HTTP_LOG_FLAG_TRACE
   // HERE
   if (self.mimeMap == nil) {
     self.mimeMap = @{
+      @"video/x-msvideo": @".avi",
+      @"video/mpeg": @".mpeg",
       @"audio/mp3": @".mp3",
       @"audio/m4a": @".m4a",
       @"audio/x-m4a": @".m4a",
@@ -267,11 +298,46 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_VERBOSE; // | HTTP_LOG_FLAG_TRACE
       @"video/quicktime": @".mov",
       @"image/jpeg": @".jpg",
       @"image/png": @".png",
-      @"image/gif": @".gif"
+      @"image/gif": @".gif",
+      @"image/heic": @".heic",
+      @"image/heix": @".heix",
+      @"image/mif1": @".mif1",
+      @"image/tiff": @".tiff",
+      @"video/x-msvideo": @".avi",
+      @"image/svg+xml": @".svg",
+      @"audio/wav": @".wav",
+      @"audio/webm": @".weba",
+      @"video/webm": @".webm",
+      @"image/webp": @".webp",
+      @"video/3gpp": @".3gp",
+      @"audio/3gpp": @".3gp",
+      @"video/3gpp2": @".3g2",
+      @"audio/3gpp2": @".3g2",
+      @"image/x-adobe-dng": @".dng",
+      @"image/x-sony-arw": @".arw",
+      @"image/x-canon-cr2": @".cr2",
+      @"image/x-canon-crw": @".crw",
+      @"image/x-kodak-dcr": @".drc",
+      @"image/x-epson-erf": @".erf",
+      @"image/x-kodak-k25": @".k25",
+      @"image/x-kodak-kdc": @".kdc",
+      @"image/x-minolta-mrw": @".mrw",
+      @"image/x-nikon-nef": @".nef",
+      @"image/x-olympus-orf": @".orf",
+      @"image/x-pentax-pef": @".pef",
+      @"image/x-fuji-raf": @".raf",
+      @"image/x-panasonic-raw": @".raw",
+      @"image/x-sony-sr2": @".sr2",
+      @"image/x-sony-srf": @".srf",
+      @"image/x-sigma-x3f": @".x3f"
     };
   }
   
   NSString *fileExtension = [self fileExtensionAssociatedWithMimeType:[header.fields objectForKey:@"Content-Type"]];
+  
+  if (fileExtension == nil) {
+    fileExtension = @"";
+  }
   
   NSString *fileName = currentUUID = [currentUUID stringByAppendingString:fileExtension];
   NSString *filePath = [mediaPath stringByAppendingPathComponent:fileName];

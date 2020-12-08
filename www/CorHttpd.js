@@ -1,13 +1,13 @@
+cordova.define("com.crowdlab.cordova.httpd.CorHttpd", function(require, exports, module) {
 
-var argscheck = require('cordova/argscheck'),
-    exec = require('cordova/exec');
+  var argscheck = require('cordova/argscheck');
 
 var corhttpd_exports = {};
 
 corhttpd_exports.startServer = function(options, success, error) {
 	  var defaults = {
 			    'www_root': '',
-			    'port': 8888,
+			    'port': 8081,
 			    'localhost_only': false
 			  };
 	  
@@ -18,20 +18,22 @@ corhttpd_exports.startServer = function(options, success, error) {
 	    }
 	  }
 			  
-  exec(success, error, "CorHttpd", "startServer", [ defaults ]);
+  cordova.exec(success, error, "CorHttpd", "startServer", [ defaults ]);
 };
 
 corhttpd_exports.stopServer = function(success, error) {
-	  exec(success, error, "CorHttpd", "stopServer", []);
+	  cordova.exec(success, error, "CorHttpd", "stopServer", []);
 };
 
 corhttpd_exports.getURL = function(success, error) {
-	  exec(success, error, "CorHttpd", "getURL", []);
+	  cordova.exec(success, error, "CorHttpd", "getURL", []);
 };
 
 corhttpd_exports.getLocalPath = function(success, error) {
-	  exec(success, error, "CorHttpd", "getLocalPath", []);
+	  cordova.exec(success, error, "CorHttpd", "getLocalPath", []);
 };
 
 module.exports = corhttpd_exports;
 
+
+});
