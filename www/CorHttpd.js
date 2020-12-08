@@ -1,6 +1,5 @@
-cordova.define("com.crowdlab.cordova.httpd.CorHttpd", function(require, exports, module) {
-
-  var argscheck = require('cordova/argscheck');
+  
+var argscheck = require('cordova/argscheck');
 
 var corhttpd_exports = {};
 
@@ -35,5 +34,3 @@ corhttpd_exports.getLocalPath = function(success, error) {
 
 module.exports = corhttpd_exports;
 
-
-});
