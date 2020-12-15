@@ -11,7 +11,6 @@
 #import "MultipartMessageHeaderField.h"
 #import "HTTPDynamicFileResponse.h"
 #import "HTTPFileResponse.h"
-#import "SentryCordova.h"
 
 
 // Log levels : off, error, warn, info, verbose
